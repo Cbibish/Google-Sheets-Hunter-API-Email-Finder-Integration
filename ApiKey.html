@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set API Key</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: transparent;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #apiKeyForm {
+      max-width: 400px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    h1 ,h4 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    input[type="text"] {
+      width: calc(100% - 12px);
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+    }
+    input[type="button"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    input[type="button"]:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <form id="apiKeyForm">
+    <h1>Set an API Key</h1>
+    <h4>Please enter a valid Hunter.io key.</h4>
+    <label for="apiKey">API Key:</label>
+    <input type="text" id="apiKey" name="apiKey">
+    <input type="button" value="Save API Key" onclick="saveApiKey()">
+  </form>
+  <div id="result"></div>
+  <script>
+    function saveApiKey() {
+      var apiKey = document.getElementById('apiKey').value;
+      google.script.run.withSuccessHandler(onSuccess).verifyAndSaveApiKey(apiKey);
+    }
+    function onSuccess(message) {
+      document.getElementById('result').innerText = message;
+      if (message === 'API Key saved successfully!') {
+        google.script.run.showSidebar();
+      }
+    }
+  </script>
+</body>
+</html>

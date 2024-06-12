@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Finder</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: transparent;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #mainContent {
+      max-width: 400px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    input[type="text"] {
+      width: calc(100% - 12px);
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+    }
+    input[type="button"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    input[type="button"]:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="mainContent">
+    <h1>Email Finder</h1>
+    <form id="emailForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName">
+      <label for="company">Company:</label>
+      <input type="text" id="company" name="company">
+      <input type="button" value="Find Email" onclick="findEmail()">
+    </form>
+    <div id="result"></div>
+  </div>
+  <script>
+    function findEmail() {
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
+      var company = document.getElementById('company').value;
+      google.script.run.withSuccessHandler(onSuccess).FindEmails(firstName, lastName, company);
+    }
+    function onSuccess(email) {
+      document.getElementById('result').innerText = 'Email: ' + email;
+    }
+  </script>
+</body>
+</html>
